@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import PricingCard from '../components/PricingCard'
 import stripePromise from '../config/stripe'
 import { supabase } from '../config/supabase'
@@ -66,26 +67,11 @@ const Pricing = () => {
     }
 
     try {
-      const stripe = await stripePromise
-      
-      // Create checkout session
-      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-        body: {
-          priceId: plan.stripeId,
-          userId: user.id,
-          email: user.email
-        }
-      })
-
-      if (error) throw error
-
-      // Redirect to Stripe Checkout
-      const result = await stripe.redirectToCheckout({
-        sessionId: data.sessionId
-      })
-
-      if (result.error) {
-        toast.error(result.error.message)
+      toast.success(`Starting ${plan.name} plan subscription process...`)
+      // Redirect to registration when not logged in
+      if (!user) {
+        window.location.href = '/register'
+        return
       }
     } catch (error) {
       console.error('Subscription error:', error)
@@ -110,7 +96,7 @@ const Pricing = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-2xl mx-auto"
           >
-            Get access to premium AI tools, templates, and consulting services. 
+            Get access to premium AI tools, templates, and consulting services.
             All plans include open source tools for maximum profits.
           </motion.p>
         </div>

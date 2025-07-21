@@ -59,7 +59,7 @@ const Home = () => {
               transition={{ delay: 0.2 }}
               className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
             >
-              Get access to premium AI tools, templates, workflows, and consulting services. 
+              Get access to premium AI tools, templates, workflows, and consulting services.
               Everything you need to dominate with AI - ready to use in one click.
             </motion.p>
             <motion.div
@@ -69,7 +69,7 @@ const Home = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link
-                to="/pricing"
+                to="/register"
                 className="bg-primary-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2"
               >
                 <span>Start Free Trial</span>
@@ -97,7 +97,6 @@ const Home = () => {
               From templates to consulting, we've got you covered
             </p>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <motion.div
@@ -153,7 +152,7 @@ const Home = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/pricing"
+              to="/register"
               className="bg-white text-primary-600 px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors"
             >
               Start Your Journey

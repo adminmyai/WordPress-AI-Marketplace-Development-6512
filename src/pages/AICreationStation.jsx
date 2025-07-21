@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import * as FiIcons from 'react-icons/fi'
 import SafeIcon from '../common/SafeIcon'
@@ -118,8 +119,8 @@ const AICreationStation = () => {
   ]
 
   const filteredStations = creationStations.filter(station => {
-    const matchesSearch = station.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      station.description.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch = station.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         station.description.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesCategory = selectedCategory === 'all' || station.category === selectedCategory
     return matchesSearch && matchesCategory
   })
@@ -141,8 +142,8 @@ const AICreationStation = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-2xl mx-auto"
           >
-            Build custom AI solutions using open-source models and tools. Create chatbots,
-            generate images, design workflows, and more.
+            Build custom AI solutions using open-source models and tools.
+            Create chatbots, generate images, design workflows, and more.
           </motion.p>
         </div>
 

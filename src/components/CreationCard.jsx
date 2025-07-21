@@ -1,12 +1,30 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import * as FiIcons from 'react-icons/fi'
 import SafeIcon from '../common/SafeIcon'
-import { Link } from 'react-router-dom'
 
 const { FiCheck, FiCpu, FiCode } = FiIcons
 
 const CreationCard = ({ station, index }) => {
+  // Map station categories to proper routes
+  const getStationRoute = () => {
+    switch(station.category) {
+      case 'chatbots':
+        return `/create/chatbots/${station.id}`;
+      case 'image':
+        return `/create/image/${station.id}`;
+      case 'video':
+        return `/create/video/${station.id}`;
+      case 'agents':
+        return `/create/agents/${station.id}`;
+      case 'workflows':
+        return `/create/workflows/${station.id}`;
+      default:
+        return `/create/${station.category}/${station.id}`;
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -25,9 +43,9 @@ const CreationCard = ({ station, index }) => {
           <SafeIcon icon={FiCpu} className="w-6 h-6 text-primary-600" />
         </div>
       </div>
-
+      
       <p className="text-gray-600 mb-4">{station.description}</p>
-
+      
       <div className="mb-4">
         <h4 className="font-medium text-gray-900 mb-2">Features:</h4>
         <ul className="space-y-1">
@@ -39,7 +57,7 @@ const CreationCard = ({ station, index }) => {
           ))}
         </ul>
       </div>
-
+      
       {station.models && (
         <div className="mb-4">
           <h4 className="font-medium text-gray-900 mb-2">Available Models:</h4>
@@ -55,7 +73,7 @@ const CreationCard = ({ station, index }) => {
           </div>
         </div>
       )}
-
+      
       {station.templates && (
         <div className="mb-4">
           <h4 className="font-medium text-gray-900 mb-2">Workflow Templates:</h4>
@@ -71,10 +89,10 @@ const CreationCard = ({ station, index }) => {
           </div>
         </div>
       )}
-
+      
       <div className="flex gap-2">
         <Link
-          to={`/create/${station.category}/${station.id}`}
+          to={getStationRoute()}
           className="flex-1 bg-primary-600 text-white py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2"
         >
           <SafeIcon icon={FiCode} className="w-4 h-4" />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import * as FiIcons from 'react-icons/fi'
 import SafeIcon from '../common/SafeIcon'
@@ -28,7 +29,8 @@ const AITools = () => {
       price: 'Premium',
       features: ['Keyword Research', 'Content Optimization', 'SERP Analysis', 'Competitor Intelligence'],
       rating: 4.9,
-      users: '15,000+'
+      users: '15,000+',
+      route: '/seo-tools/2'
     },
     {
       id: 2,
@@ -38,7 +40,8 @@ const AITools = () => {
       price: 'Free',
       features: ['Blog Posts', 'Social Media', 'Email Copy', 'Ad Copy'],
       rating: 4.8,
-      users: '25,000+'
+      users: '25,000+',
+      route: '/create/chatbots/1'
     },
     {
       id: 3,
@@ -48,7 +51,8 @@ const AITools = () => {
       price: 'Premium',
       features: ['NLP Integration', 'Multi-Platform', 'Analytics', 'Custom Training'],
       rating: 4.7,
-      users: '8,000+'
+      users: '8,000+',
+      route: '/create/chatbots/1'
     },
     {
       id: 4,
@@ -58,7 +62,8 @@ const AITools = () => {
       price: 'Premium',
       features: ['Text to Image', 'Style Transfer', 'Batch Generation', 'High Resolution'],
       rating: 4.9,
-      users: '30,000+'
+      users: '30,000+',
+      route: '/create/image/2'
     },
     {
       id: 5,
@@ -68,7 +73,8 @@ const AITools = () => {
       price: 'Premium',
       features: ['Code Generation', 'Bug Detection', 'Documentation', 'Multi-Language'],
       rating: 4.8,
-      users: '12,000+'
+      users: '12,000+',
+      route: '/create/agents/4'
     },
     {
       id: 6,
@@ -78,12 +84,13 @@ const AITools = () => {
       price: 'Premium',
       features: ['Predictive Analytics', 'Real-time Insights', 'Custom Reports', 'Data Visualization'],
       rating: 4.7,
-      users: '18,000+'
+      users: '18,000+',
+      route: '/create/workflows/5'
     }
   ]
 
   const filteredTools = tools.filter(tool => {
-    const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          tool.description.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory
     return matchesSearch && matchesCategory
@@ -106,7 +113,7 @@ const AITools = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-2xl mx-auto"
           >
-            Discover powerful AI tools that deliver real results. From SEO to content creation, 
+            Discover powerful AI tools that deliver real results. From SEO to content creation,
             we have everything you need to dominate your market.
           </motion.p>
         </div>
@@ -114,7 +121,10 @@ const AITools = () => {
         {/* Search and Filter */}
         <div className="mb-8">
           <div className="relative mb-6">
-            <SafeIcon icon={FiSearch} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <SafeIcon
+              icon={FiSearch}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
+            />
             <input
               type="text"
               placeholder="Search tools..."
@@ -123,7 +133,6 @@ const AITools = () => {
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
-
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
@@ -158,8 +167,8 @@ const AITools = () => {
                     {tool.name}
                   </h3>
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    tool.price === 'Free' 
-                      ? 'bg-green-100 text-green-800' 
+                    tool.price === 'Free'
+                      ? 'bg-green-100 text-green-800'
                       : 'bg-primary-100 text-primary-800'
                   }`}>
                     {tool.price}
@@ -188,9 +197,12 @@ const AITools = () => {
                 </ul>
               </div>
 
-              <button className="w-full bg-primary-600 text-white py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors">
+              <Link 
+                to={tool.route} 
+                className="w-full bg-primary-600 text-white py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors flex items-center justify-center"
+              >
                 Try Now
-              </button>
+              </Link>
             </motion.div>
           ))}
         </div>

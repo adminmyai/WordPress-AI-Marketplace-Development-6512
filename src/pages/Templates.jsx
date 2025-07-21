@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import * as FiIcons from 'react-icons/fi'
 import SafeIcon from '../common/SafeIcon'
+import toast from 'react-hot-toast'
 
 const { FiSearch, FiDownload, FiStar, FiUsers, FiCode, FiMessageSquare, FiTrendingUp } = FiIcons
 
@@ -28,7 +30,8 @@ const Templates = () => {
       downloads: '5,234',
       rating: 4.9,
       features: ['24/7 Support', 'Multi-language', 'Ticket Management', 'Knowledge Base'],
-      tags: ['Customer Service', 'NLP', 'Automation']
+      tags: ['Customer Service', 'NLP', 'Automation'],
+      route: '/create/agents/4'
     },
     {
       id: 2,
@@ -39,7 +42,8 @@ const Templates = () => {
       downloads: '3,456',
       rating: 4.8,
       features: ['Product Search', 'Order Tracking', 'Payment Integration', 'Personalized Recommendations'],
-      tags: ['E-commerce', 'Sales', 'Recommendations']
+      tags: ['E-commerce', 'Sales', 'Recommendations'],
+      route: '/create/chatbots/1'
     },
     {
       id: 3,
@@ -50,7 +54,8 @@ const Templates = () => {
       downloads: '8,901',
       rating: 4.9,
       features: ['Keyword Analysis', 'Content Optimization', 'SERP Tracking', 'Competitor Analysis'],
-      tags: ['SEO', 'Content', 'Analytics']
+      tags: ['SEO', 'Content', 'Analytics'],
+      route: '/seo-tools/2'
     },
     {
       id: 4,
@@ -61,7 +66,8 @@ const Templates = () => {
       downloads: '2,345',
       rating: 4.7,
       features: ['Lead Scoring', 'CRM Integration', 'Email Automation', 'Analytics Dashboard'],
-      tags: ['Lead Generation', 'CRM', 'Sales']
+      tags: ['Lead Generation', 'CRM', 'Sales'],
+      route: '/workflows/2/builder'
     },
     {
       id: 5,
@@ -72,7 +78,8 @@ const Templates = () => {
       downloads: '6,789',
       rating: 4.6,
       features: ['Content Scheduling', 'Hashtag Optimization', 'Analytics', 'Multi-platform'],
-      tags: ['Social Media', 'Content', 'Scheduling']
+      tags: ['Social Media', 'Content', 'Scheduling'],
+      route: '/workflows/1/builder'
     },
     {
       id: 6,
@@ -83,13 +90,18 @@ const Templates = () => {
       downloads: '4,567',
       rating: 4.8,
       features: ['Real-time Analytics', 'Predictive Insights', 'Custom Reports', 'Data Visualization'],
-      tags: ['Analytics', 'Business Intelligence', 'Reporting']
+      tags: ['Analytics', 'Business Intelligence', 'Reporting'],
+      route: '/create/workflows/5'
     }
   ]
 
+  const handleDownload = (templateName) => {
+    toast.success(`${templateName} template downloaded successfully`)
+  }
+
   const filteredTemplates = templates.filter(template => {
-    const matchesSearch = template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         template.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = template.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         template.description.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          template.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
     const matchesCategory = selectedCategory === 'all' || template.category === selectedCategory
     return matchesSearch && matchesCategory
@@ -112,15 +124,17 @@ const Templates = () => {
             transition={{ delay: 0.2 }}
             className="text-xl text-gray-600 max-w-2xl mx-auto"
           >
-            Get started instantly with our collection of proven AI templates. 
-            Perfect for the most common use cases and ready to deploy.
+            Get started instantly with our collection of proven AI templates. Perfect for the most common use cases and ready to deploy.
           </motion.p>
         </div>
 
         {/* Search and Filter */}
         <div className="mb-8">
           <div className="relative mb-6">
-            <SafeIcon icon={FiSearch} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <SafeIcon
+              icon={FiSearch}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
+            />
             <input
               type="text"
               placeholder="Search templates..."
@@ -129,7 +143,6 @@ const Templates = () => {
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
-
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
@@ -164,8 +177,8 @@ const Templates = () => {
                     {template.name}
                   </h3>
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    template.price === 'Free' 
-                      ? 'bg-green-100 text-green-800' 
+                    template.price === 'Free'
+                      ? 'bg-green-100 text-green-800'
                       : 'bg-primary-100 text-primary-800'
                   }`}>
                     {template.price}
@@ -207,10 +220,13 @@ const Templates = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-primary-600 text-white py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2">
+              <Link
+                to={template.route}
+                className="w-full bg-primary-600 text-white py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors flex items-center justify-center space-x-2"
+              >
                 <SafeIcon icon={FiDownload} className="w-4 h-4" />
-                <span>Download Template</span>
-              </button>
+                <span>Use Template</span>
+              </Link>
             </motion.div>
           ))}
         </div>
